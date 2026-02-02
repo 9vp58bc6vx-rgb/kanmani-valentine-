@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For Lakshmi ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 35px 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      text-align: center;
+      max-width: 460px;
+      z-index: 2;
+    }
+
+    h1 { color: #e63946; }
+
+    p {
+      color: #555;
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .slider {
+      width: 100%;
+      height: 260px;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #yesBtn { background:#e63946;color:white; }
+    #noBtn { background:#ccc;color:#333; }
+
+    .heart {
+      position: absolute;
+      color: #e63946;
+      font-size: 24px;
+      animation: float 4s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity:1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity:0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="slider">
+    <img src="photo1.jpg" id="slide">
+  </div>
+
+  <h1>Hey Kanmani… ❤️</h1>
+  <p>
+    Lakshmi, my Kanne…<br>
+    Will you be my Valentine this year? 🌹
+  </p>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 🙃</button>
+  </div>
+</div>
+
+<audio id="loveSong" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+  const photos = ["photo1.jpg","photo2.jpg","photo3.jpg"];
+  let index = 0;
+  const slide = document.getElementById("slide");
+
+  setInterval(()=>{
+    index = (index+1)%photos.length;
+    slide.src = photos[index];
+  },3000);
+
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const loveSong = document.getElementById("loveSong");
+
+  let noClicks = 0;
+  let yesScale = 1;
+
+  noBtn.addEventListener("click",()=>{
+    noClicks++;
+    yesScale += 0.15;
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    if(noClicks>=12){
+      noBtn.textContent="Yes, but in red ❤️";
+      noBtn.style.background="#e63946";
+      noBtn.style.color="white";
+      setTimeout(showSurprise,600);
+    }
+  });
+
+  yesBtn.addEventListener("click",showSurprise);
+
+  function showSurprise(){
+    loveSong.play();
+    startHearts();
+    document.body.innerHTML=`
+      <div style="height:100vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#ff9a9e,#fad0c4);font-family:'Segoe UI',sans-serif;">
+        <div style="background:white;padding:45px;border-radius:20px;
+        box-shadow:0 20px 40px rgba(0,0,0,0.2);text-align:center;max-width:520px;">
+          <h1 style="color:#e63946;">Lakshmi… 😍</h1>
+          <p style="font-size:20px;">
+            My Kanmani. My Kanne.<br><br>
+            You are my calm, my chaos, my comfort and my favorite person.  
+            Every laugh with you, every fight, every silence —  
+            I choose you. Always. 💕<br><br>
+            This Valentine’s Day — and every day after —  
+            I’m yours. Completely. ❤️<br><br>
+
+            <span style="font-size:22px;">I love you, too Kanne 😘</span><br>
+            <span style="font-family:'Pacifico',cursive;font-size:26px;opacity:0.85;">~ AN</span>
+          </p>
+        </div>
+      </div>`;
+  }
+
+  function startHearts(){
+    setInterval(()=>{
+      const h=document.createElement("div");
+      h.className="heart";
+      h.innerHTML="❤️";
+      h.style.left=Math.random()*100+"vw";
+      h.style.bottom="-30px";
+      h.style.fontSize=(Math.random()*20+20)+"px";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),4000);
+    },120);
+  }
+</script>
+</body>
+</html>
